@@ -5,7 +5,6 @@ import {RiCheckboxBlankCircleLine} from "react-icons/ri"
 import {RiCheckboxCircleLine} from "react-icons/ri"
 import {AiOutlineEdit} from "react-icons/ai"
 import {BiCheck} from "react-icons/bi"
-import {RxCross2} from "react-icons/rx"
 
 
 export default function Home() {
@@ -82,13 +81,13 @@ export default function Home() {
                         }
                       }}>
                         {
-                          collection.checked== !collection.checke ? <RiCheckboxCircleLine/> : <RiCheckboxBlankCircleLine/>
+                          collection.checked ? <RiCheckboxCircleLine/> : <RiCheckboxBlankCircleLine/>
                         }
                         {/* <button className={`${ collection.checked== !collection.checked ? "hidden" : ""}`}><RiCheckboxBlankCircleLine/></button>
                         <button className={`${ collection.checked== !collection.checked ? "" : "hidden"}`}><RiCheckboxCircleLine/></button> */}
                       </div>
                       {/* check ? "line-through" : "" */}
-                      <p className={`${idx === check || collection.checked==true ? "line-through":"underline" }`}>{ idx === edit && newItem.split("").length > 0 ? collection.text = newItem  : collection.text}</p>  
+                      <p className={`${idx === check || collection.checked===true ? "line-through":"underline" }`}>{ idx === edit && newItem.split("").length > 0 ? collection.text = newItem  : collection.text}</p>  
                     </label>
                     <div className={`${idx === edit ? "flex" :"hidden"} absolute w-full justify-center bg-slate-400 border -ml-1 gap-8`}>
                       <input
@@ -100,7 +99,7 @@ export default function Home() {
                       </div>
                     </div>
                   <div className="flex  justify-center gap-1">
-                    <button className={check === idx || collection.checked == true ? "block text-[0.75rem] my-auto" : "hidden"} onClick={()=>{
+                    <button className={check === idx || collection.checked === true ? "block text-[0.75rem] my-auto" : "hidden"} onClick={()=>{
                       if(edit !== idx){
                         setEdit(idx);
                         setNewItem(collection.text)
@@ -108,7 +107,7 @@ export default function Home() {
                         setEdit(null)
                       }
                     }}><AiOutlineEdit/></button>
-                    <button className={check === idx || collection.checked == true ? "block" : "hidden"} onClick={()=>handleDeletion(idx)}><GrFormTrash/></button>
+                    <button className={check === idx || collection.checked === true ? "block" : "hidden"} onClick={()=>handleDeletion(idx)}><GrFormTrash/></button>
                   </div></li>
                   )
                 }
