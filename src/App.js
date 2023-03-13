@@ -15,16 +15,11 @@ export default function Home() {
   const [alerte, setAlerte] = useState(false)
   const [limit, setLimit] = useState(false)
   const [newItem, setNewItem] = useState("")
-  // const [newEdit, setNewEdit] = useState(true)
-  
-  
   function handleList(e){
     e.preventDefault();
     item.split("").length < 1 ? setAlerte(true) : item.split("").length > 20 ? setLimit(true) : setList(current => [...current, {text: item, checked: false, trash: false}]);
-    item.split("").length > 20 ?
-    setItem(current => current) : setItem("");
+    item.split("").length > 20 ? setItem(current => current) : setItem("");
   }
-  
   useEffect(()=>{
     const display = setTimeout(()=>{
       setAlerte(false)
@@ -32,7 +27,6 @@ export default function Home() {
 
     return ()=> clearTimeout(display);
   },[alerte])
-
   useEffect(()=>{
     const displaying = setTimeout(()=>{
       setLimit(false)
@@ -41,10 +35,8 @@ export default function Home() {
   },[limit])
 
   function handleDeletion(index){
-    const newList = [...list];
-    newList.splice(index,1);
-    setList(newList);
-    setCheck(-1)
+    const newList = [...list];newList.splice(index,1);
+    setList(newList);setCheck(-1)
   }
 
   return (
@@ -67,26 +59,17 @@ export default function Home() {
           <div className="flex justify-center">
             <div className={`flex w-6/12 h-[10rem] ${list.length < 6 ?"":"scroll overflow-y-scroll"}  justify-center mt-6`}>
               <ul className="border w-full h-fit flex flex-col gap-2">
-                {
-                  list.map((collection, idx)=>
+                { list.map((collection, idx)=>
                   <li key={idx} className="group relative hover:bg-slate-400 flex justify-between px-1">
                     <label className="flex gap-4">
                       <div className="flex flex-col justify-center" onClick={()=>{
                         if(check !== idx) {
                           setCheck(idx)
                           collection.checked = true
-                        }else{
-                          setCheck(null)
-                          collection.checked = false
-                        }
-                      }}>
-                        {
-                          collection.checked ? <RiCheckboxCircleLine/> : <RiCheckboxBlankCircleLine/>
-                        }
-                        {/* <button className={`${ collection.checked== !collection.checked ? "hidden" : ""}`}><RiCheckboxBlankCircleLine/></button>
-                        <button className={`${ collection.checked== !collection.checked ? "" : "hidden"}`}><RiCheckboxCircleLine/></button> */}
+                        }else{setCheck(null)
+                              collection.checked = false} }}>
+                        {collection.checked ? <RiCheckboxCircleLine/> : <RiCheckboxBlankCircleLine/>}
                       </div>
-                      {/* check ? "line-through" : "" */}
                       <p className={`${idx === check || collection.checked===true ? "line-through":"underline" }`}>{ idx === edit && newItem.split("").length > 0 ? collection.text = newItem  : collection.text}</p>  
                     </label>
                     <div className={`${idx === edit ? "flex" :"hidden"} absolute w-full justify-center bg-slate-400 border -ml-1 gap-8`}>
@@ -103,14 +86,10 @@ export default function Home() {
                       if(edit !== idx){
                         setEdit(idx);
                         setNewItem(collection.text)
-                      } else {
-                        setEdit(null)
-                      }
+                      } else {setEdit(null)}
                     }}><AiOutlineEdit/></button>
                     <button className={check === idx || collection.checked === true ? "block" : "hidden"} onClick={()=>handleDeletion(idx)}><GrFormTrash/></button>
-                  </div></li>
-                  )
-                }
+                  </div></li>) }
               </ul>
             </div>
           </div>
